@@ -14,6 +14,6 @@ This API provides endpoints for the following core functionalities:
   
 **Tech Stack🖥️**
 
-ASP.NET Core – Framework used to build the RESTful API
-Entity Framework Core – ORM used for database interaction
-SQL Server – Relational database used for storing data
+- ASP.NET Core – Framework used to build the RESTful API
+- Entity Framework Core – ORM used for database interaction
+- SQL Server – Relational database used for storing data
