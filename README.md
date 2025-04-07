@@ -17,3 +17,17 @@ This API provides endpoints for the following core functionalities:
 - ASP.NET Core – Framework used to build the RESTful API
 - Entity Framework Core – ORM used for database interaction
 - SQL Server – Relational database used for storing data
+
+
+## **Authentication🔒**
+
+This API uses JWT tokens to authenticate users. When a user logs in, a token is generated and returned. The client then includes this token in the Authorization header for future requests.
+
+### How It Works:
+
+- The API generates a JWT with the user's email and username
+
+- The client uses this token to make authenticated requests
+
+- The token expires after 40 minutes
+
