@@ -11,8 +11,8 @@ using UniversityManagementSystem.Data;
 namespace UniversityManagementSystem.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241103094512_madeCourseCollectionNullableInInstructorModel")]
-    partial class madeCourseCollectionNullableInInstructorModel
+    [Migration("20241113080956_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,87 +104,6 @@ namespace UniversityManagementSystem.Migrations
                             Credit = 4,
                             InstructorId = 1,
                             Name = "Computer Architecture"
-                        });
-                });
-
-            modelBuilder.Entity("UniversityManagementSystem.Models.Enrollement", b =>
-                {
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Grade")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("StudentId", "CourseId");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("Enrollements");
-
-                    b.HasData(
-                        new
-                        {
-                            StudentId = 1,
-                            CourseId = 4,
-                            Grade = "A"
-                        },
-                        new
-                        {
-                            StudentId = 1,
-                            CourseId = 6,
-                            Grade = "C"
-                        },
-                        new
-                        {
-                            StudentId = 2,
-                            CourseId = 1,
-                            Grade = "B"
-                        },
-                        new
-                        {
-                            StudentId = 2,
-                            CourseId = 2,
-                            Grade = "C"
-                        },
-                        new
-                        {
-                            StudentId = 2,
-                            CourseId = 8,
-                            Grade = "B"
-                        },
-                        new
-                        {
-                            StudentId = 3,
-                            CourseId = 3,
-                            Grade = "C"
-                        },
-                        new
-                        {
-                            StudentId = 3,
-                            CourseId = 7,
-                            Grade = "A"
-                        },
-                        new
-                        {
-                            StudentId = 4,
-                            CourseId = 3,
-                            Grade = "A"
-                        },
-                        new
-                        {
-                            StudentId = 4,
-                            CourseId = 7,
-                            Grade = "A"
-                        },
-                        new
-                        {
-                            StudentId = 5,
-                            CourseId = 5,
-                            Grade = "B"
                         });
                 });
 
@@ -368,6 +287,108 @@ namespace UniversityManagementSystem.Migrations
                         });
                 });
 
+            modelBuilder.Entity("UniversityManagementSystem.Models.StudentCourse", b =>
+                {
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Grade")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StudentId", "CourseId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("StudentCourses");
+
+                    b.HasData(
+                        new
+                        {
+                            StudentId = 1,
+                            CourseId = 4,
+                            Grade = "A"
+                        },
+                        new
+                        {
+                            StudentId = 1,
+                            CourseId = 6,
+                            Grade = "C"
+                        },
+                        new
+                        {
+                            StudentId = 2,
+                            CourseId = 1,
+                            Grade = "B"
+                        },
+                        new
+                        {
+                            StudentId = 2,
+                            CourseId = 2,
+                            Grade = "C"
+                        },
+                        new
+                        {
+                            StudentId = 2,
+                            CourseId = 8,
+                            Grade = "B"
+                        },
+                        new
+                        {
+                            StudentId = 3,
+                            CourseId = 3,
+                            Grade = "C"
+                        },
+                        new
+                        {
+                            StudentId = 3,
+                            CourseId = 7,
+                            Grade = "A"
+                        },
+                        new
+                        {
+                            StudentId = 4,
+                            CourseId = 3,
+                            Grade = "A"
+                        },
+                        new
+                        {
+                            StudentId = 4,
+                            CourseId = 7,
+                            Grade = "A"
+                        },
+                        new
+                        {
+                            StudentId = 5,
+                            CourseId = 5,
+                            Grade = "B"
+                        });
+                });
+
+            modelBuilder.Entity("UniversityManagementSystem.Models.UserAccount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("HashedPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserAccounts");
+                });
+
             modelBuilder.Entity("UniversityManagementSystem.Models.Course", b =>
                 {
                     b.HasOne("UniversityManagementSystem.Models.Instructor", "Instructor")
@@ -379,16 +400,16 @@ namespace UniversityManagementSystem.Migrations
                     b.Navigation("Instructor");
                 });
 
-            modelBuilder.Entity("UniversityManagementSystem.Models.Enrollement", b =>
+            modelBuilder.Entity("UniversityManagementSystem.Models.StudentCourse", b =>
                 {
                     b.HasOne("UniversityManagementSystem.Models.Course", "Course")
-                        .WithMany("Enrollements")
+                        .WithMany("StudentCourses")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("UniversityManagementSystem.Models.Student", "Student")
-                        .WithMany("Enrollements")
+                        .WithMany("StudentCourses")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -400,7 +421,7 @@ namespace UniversityManagementSystem.Migrations
 
             modelBuilder.Entity("UniversityManagementSystem.Models.Course", b =>
                 {
-                    b.Navigation("Enrollements");
+                    b.Navigation("StudentCourses");
                 });
 
             modelBuilder.Entity("UniversityManagementSystem.Models.Instructor", b =>
@@ -410,7 +431,7 @@ namespace UniversityManagementSystem.Migrations
 
             modelBuilder.Entity("UniversityManagementSystem.Models.Student", b =>
                 {
-                    b.Navigation("Enrollements");
+                    b.Navigation("StudentCourses");
                 });
 #pragma warning restore 612, 618
         }

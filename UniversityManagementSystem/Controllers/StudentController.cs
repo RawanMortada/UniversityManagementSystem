@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniversityManagementSystem.Dto.CourseDto;
 using UniversityManagementSystem.Dto.StudentDto;
@@ -22,6 +23,7 @@ namespace UniversityManagementSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Student>))]
         public IActionResult GetAllStudents()
         {
@@ -30,6 +32,7 @@ namespace UniversityManagementSystem.Controllers
         }
 
         [HttpGet("{studentId}")]
+        [Authorize]
         [ProducesResponseType(200, Type = typeof(Student))]
         [ProducesResponseType(400)]
         public IActionResult GetStudent(int studentId)
@@ -45,6 +48,7 @@ namespace UniversityManagementSystem.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [ProducesResponseType(201)]//created status for a successful creation
         [ProducesResponseType(400)]//bad request for validation or payment
         [ProducesResponseType(500)]//internal server error
@@ -76,6 +80,7 @@ namespace UniversityManagementSystem.Controllers
         }
 
         [HttpPut("{studentId}")]
+        [Authorize]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
@@ -111,6 +116,7 @@ namespace UniversityManagementSystem.Controllers
         }
 
         [HttpDelete("{studentId}")]
+        [Authorize]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]

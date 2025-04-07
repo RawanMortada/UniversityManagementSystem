@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using UniversityManagementSystem.Models;
 
 namespace UniversityManagementSystem.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext< AppUser>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
@@ -15,10 +17,27 @@ namespace UniversityManagementSystem.Data
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<StudentCourse> StudentCourses { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            List<IdentityRole> roles = new List<IdentityRole>
+            {
+                new IdentityRole
+                {
+                    Name = "Admin",
+                    NormalizedName = "ADMIN"
+                },
+                new IdentityRole
+                {
+                    Name = "User",
+                    NormalizedName = "USER"
+                },
+            };
+
+            modelBuilder.Entity<IdentityRole>().HasData(roles);
 
             //explicitly configuring relationships
             // sets a composite key for the StudentCourse entity,
@@ -45,8 +64,9 @@ namespace UniversityManagementSystem.Data
                 .HasForeignKey(c => c.InstructorId);
 
             //seeding entities
-            modelBuilder.Entity<Student>().HasData(new Student
-            {
+
+            modelBuilder.Entity<Student>().HasData(
+            new Student{
                 Id = 1,
                 FirstName = "Sara",
                 LastName = "Ahmad",
@@ -126,7 +146,8 @@ namespace UniversityManagementSystem.Data
                 Major = "Software Engineering",
             });
 
-            modelBuilder.Entity<Instructor>().HasData(new Instructor
+            modelBuilder.Entity<Instructor>().HasData(
+            new Instructor
             {
                 Id=1,
                 FirstName = "Adeel",
@@ -160,8 +181,8 @@ namespace UniversityManagementSystem.Data
 
             });
 
-
-            modelBuilder.Entity<Course>().HasData(new Course
+            modelBuilder.Entity<Course>().HasData(
+            new Course
             { Id = 1,
               Name = "Statistics", 
               Credit = 2, 
@@ -217,7 +238,8 @@ namespace UniversityManagementSystem.Data
                 InstructorId = 1
             });
 
-            modelBuilder.Entity<StudentCourse>().HasData(new StudentCourse
+            modelBuilder.Entity<StudentCourse>().HasData(
+            new StudentCourse
             {
                 StudentId = 1,
                 CourseId = 4,

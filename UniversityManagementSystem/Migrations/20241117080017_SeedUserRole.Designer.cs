@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversityManagementSystem.Data;
 
@@ -11,9 +12,11 @@ using UniversityManagementSystem.Data;
 namespace UniversityManagementSystem.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20241117080017_SeedUserRole")]
+    partial class SeedUserRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace UniversityManagementSystem.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "81d663da-41e7-4dee-ab0a-5753ca2769f6",
+                            Id = "7264453e-a3d4-4495-8d46-0f8ff38f616b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "02dfce41-35c7-400a-84e5-dab3e4ecf10c",
+                            Id = "182fea8b-62d1-4f89-9ca6-ea92294cfbc4",
                             Name = "User",
                             NormalizedName = "USER"
                         });

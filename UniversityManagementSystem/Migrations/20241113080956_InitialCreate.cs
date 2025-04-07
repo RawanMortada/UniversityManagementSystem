@@ -7,7 +7,7 @@
 namespace UniversityManagementSystem.Migrations
 {
     /// <inheritdoc />
-    public partial class addModelsAndSeedTables : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -47,6 +47,20 @@ namespace UniversityManagementSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserAccounts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HashedPassword = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserAccounts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Courses",
                 columns: table => new
                 {
@@ -68,7 +82,7 @@ namespace UniversityManagementSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Enrollements",
+                name: "StudentCourses",
                 columns: table => new
                 {
                     StudentId = table.Column<int>(type: "int", nullable: false),
@@ -77,15 +91,15 @@ namespace UniversityManagementSystem.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Enrollements", x => new { x.StudentId, x.CourseId });
+                    table.PrimaryKey("PK_StudentCourses", x => new { x.StudentId, x.CourseId });
                     table.ForeignKey(
-                        name: "FK_Enrollements_Courses_CourseId",
+                        name: "FK_StudentCourses_Courses_CourseId",
                         column: x => x.CourseId,
                         principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Enrollements_Students_StudentId",
+                        name: "FK_StudentCourses_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
@@ -134,7 +148,7 @@ namespace UniversityManagementSystem.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Enrollements",
+                table: "StudentCourses",
                 columns: new[] { "CourseId", "StudentId", "Grade" },
                 values: new object[,]
                 {
@@ -156,8 +170,8 @@ namespace UniversityManagementSystem.Migrations
                 column: "InstructorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Enrollements_CourseId",
-                table: "Enrollements",
+                name: "IX_StudentCourses_CourseId",
+                table: "StudentCourses",
                 column: "CourseId");
         }
 
@@ -165,7 +179,10 @@ namespace UniversityManagementSystem.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Enrollements");
+                name: "StudentCourses");
+
+            migrationBuilder.DropTable(
+                name: "UserAccounts");
 
             migrationBuilder.DropTable(
                 name: "Courses");

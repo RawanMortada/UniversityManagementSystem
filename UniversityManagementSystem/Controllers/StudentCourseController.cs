@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniversityManagementSystem.Dto.CourseDto;
 using UniversityManagementSystem.Dto.StudentCourseDto;
@@ -22,6 +23,7 @@ namespace UniversityManagementSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [ProducesResponseType(200, Type = typeof(IEnumerable<StudentCourse>))]
         public IActionResult GetAllEnrollments()
         {
@@ -31,6 +33,7 @@ namespace UniversityManagementSystem.Controllers
 
 
         [HttpGet("{studentId}")]
+        [Authorize]
         [ProducesResponseType(200, Type = typeof(StudentCourse))]
         [ProducesResponseType(400)]
         public IActionResult GetAllEnrollmentsForOneStudent(int studentId)
@@ -46,6 +49,7 @@ namespace UniversityManagementSystem.Controllers
 
 
         [HttpPost]
+        [Authorize]
         [ProducesResponseType(201)]//created status for a successful creation
         [ProducesResponseType(400)]//bad request for validation or payment
         public IActionResult AddEnrollment([FromBody] AddStudentCourseDto studentCourseDto)
@@ -64,6 +68,7 @@ namespace UniversityManagementSystem.Controllers
         }
 
         [HttpPut("{studentId}")]
+        [Authorize]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
@@ -94,6 +99,7 @@ namespace UniversityManagementSystem.Controllers
         }
 
         [HttpDelete("{studentId}")]
+        [Authorize]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
