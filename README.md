@@ -1,9 +1,9 @@
-**University Management System API**
+# **University Management System API**
 
 This is a simple university management system api built using ASP.NET and Entity Framework. The API allows the admin to manage information related to students, courses, and instructors.
 
 
-**Project Overview**
+## **Project Overview**
 
 This API provides endpoints for the following core functionalities:
 - Students: add, delete, and update student information
@@ -12,7 +12,7 @@ This API provides endpoints for the following core functionalities:
 - Enrollement: enroll/remove students into/from courses
 
   
-**Tech Stack🖥️**
+## **Tech Stack🖥️**
 
 - ASP.NET Core – Framework used to build the RESTful API
 - Entity Framework Core – ORM used for database interaction
